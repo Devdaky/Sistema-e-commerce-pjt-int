@@ -15,4 +15,4 @@ O **VitaMarket** é um protótipo de e-commerce desenvolvido para a disciplina d
 - **Multiplataforma:** Desenvolvido em C Puro (padrão ANSI C), compatível com Windows, Linux e macOS.
 
 ## 👥 Equipe
-Projeto desenvolvido por Eduarda dos Santos de Souza, Felipe Augusto Peres Pontes, Gustavo Araújo Lopes e Márcio Luiz Ribeiro de Souza Filho, para os cursos de Análise e Desenvolvimento de Sistemas e Sistemas da Informação.
+Projeto desenvolvido por Eduarda dos Santos de Souza, Felipe Augusto Peres Pontes, Gustavo Araújo Lopes, Márcio Luiz Ribeiro de Souza Filho e Pedro de Oliveira Torres, para os cursos de Análise e Desenvolvimento de Sistemas e Sistemas da Informação.
