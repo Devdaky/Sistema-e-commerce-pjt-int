@@ -4,7 +4,7 @@
 #include "utils.h"
 
 #define ADMIN_NOME  "Administrador"
-#define ADMIN_CPF   "52998224725"
+#define ADMIN_LOGIN "admin"
 #define ADMIN_SENHA "admin123"
 
 int salvar_usuarios(const Contexto *ctx)
@@ -17,7 +17,7 @@ int salvar_usuarios(const Contexto *ctx)
     }
     for (i = 0; i < ctx->qtd_usuarios; i++) {
         const Usuario *u = &ctx->usuarios[i];
-        fprintf(f, "%d|%s|%s|%lu|%d\n", u->id, u->nome, u->cpf, u->senha_hash, u->admin);
+        fprintf(f, "%d|%s|%s|%lu|%d\n", u->id, u->nome, u->login, u->senha_hash, u->admin);
     }
     fclose(f);
     return 1;
@@ -32,25 +32,25 @@ int carregar_usuarios(Contexto *ctx)
     ctx->qtd_usuarios = 0;
     if (f != NULL) {
         while (fgets(linha, (int)sizeof linha, f) != NULL && ctx->qtd_usuarios < MAX_USUARIOS) {
-            if (sscanf(linha, "%d|%49[^|]|%11[^|]|%lu|%d",
-                       &u.id, u.nome, u.cpf, &u.senha_hash, &u.admin) == 5) {
+            if (sscanf(linha, "%d|%49[^|]|%19[^|]|%lu|%d",
+                       &u.id, u.nome, u.login, &u.senha_hash, &u.admin) == 5) {
                 ctx->usuarios[ctx->qtd_usuarios++] = u;
             }
         }
         fclose(f);
     }
     if (ctx->qtd_usuarios == 0) {
-        adicionar_usuario(ctx, ADMIN_NOME, ADMIN_CPF, ADMIN_SENHA, 1);
+        adicionar_usuario(ctx, ADMIN_NOME, ADMIN_LOGIN, ADMIN_SENHA, 1);
         salvar_usuarios(ctx);
     }
     return ctx->qtd_usuarios;
 }
 
-int indice_usuario_por_cpf(const Contexto *ctx, const char *cpf)
+int indice_usuario_por_login(const Contexto *ctx, const char *login)
 {
     int i;
     for (i = 0; i < ctx->qtd_usuarios; i++) {
-        if (str_igual(ctx->usuarios[i].cpf, cpf)) {
+        if (str_igual_ci(ctx->usuarios[i].login, login)) {
             return i;
         }
     }
@@ -68,7 +68,7 @@ int indice_usuario_por_id(const Contexto *ctx, int id)
     return -1;
 }
 
-int adicionar_usuario(Contexto *ctx, const char *nome, const char *cpf,
+int adicionar_usuario(Contexto *ctx, const char *nome, const char *login,
                       const char *senha, int admin)
 {
     int i, maior = 0;
@@ -85,7 +85,7 @@ int adicionar_usuario(Contexto *ctx, const char *nome, const char *cpf,
     u = &ctx->usuarios[ctx->qtd_usuarios];
     u->id = maior + 1;
     str_copiar(u->nome, nome, TAM_NOME);
-    str_copiar(u->cpf, cpf, 12);
+    str_copiar(u->login, login, TAM_LOGIN);
     u->senha_hash = calcular_hash(senha);
     u->admin = admin;
     ctx->qtd_usuarios++;
