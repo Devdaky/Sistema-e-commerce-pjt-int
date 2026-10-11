@@ -19,4 +19,4 @@ Para acessar o sistema, é solicitado um CPF. Para realizar os testes de forma s
 - [Gerador de CPF - 4Devs](https://www.4devs.com.br/gerador_de_cpf)
 
 ## 👥 Equipe
-Projeto desenvolvido por Eduarda dos Santos de Souza, Felipe Augusto Peres Pontes, Gustavo Araújo Lopes, Márcio Luiz Ribeiro de Souza Filho e Pedro de Oliveira Torres, para os cursos de Análise e Desenvolvimento de Sistemas e Sistemas da Informação.
+Projeto desenvolvido por Eduarda dos Santos de Souza, Felipe Augusto Peres Pontes, Gustavo Araújo Lopes, Márcio Luiz Ribeiro de Souza Filho e Pedro de Oliveira Torres, para os cursos de Análise e Desenvolvimento de Sistemas e Sistemas da Informação do Centro Universitário Unieuro (UNIEURO).
