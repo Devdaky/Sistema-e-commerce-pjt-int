@@ -14,5 +14,9 @@ O **VitaMarket** é um protótipo de e-commerce desenvolvido para a disciplina d
 - **Tratamento de Buffer:** Proteção contra erros de digitação do usuário (evita loops infinitos no terminal).
 - **Multiplataforma:** Desenvolvido em C Puro (padrão ANSI C), compatível com Windows, Linux e macOS.
 
+## 🔐 Simulação de Login
+Para acessar o sistema, é solicitado um CPF. Para realizar os testes de forma segura e não utilizar um CPF existente, utilize a ferramenta abaixo para gerar um número válido:
+- [Gerador de CPF - 4Devs](https://www.4devs.com.br/gerador_de_cpf)
+
 ## 👥 Equipe
 Projeto desenvolvido por Eduarda dos Santos de Souza, Felipe Augusto Peres Pontes, Gustavo Araújo Lopes, Márcio Luiz Ribeiro de Souza Filho e Pedro de Oliveira Torres, para os cursos de Análise e Desenvolvimento de Sistemas e Sistemas da Informação.
