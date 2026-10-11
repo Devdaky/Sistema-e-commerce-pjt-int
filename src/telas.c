@@ -383,16 +383,15 @@ Estado tela_carrinho(Contexto *ctx)
 
 static int executar_login(Contexto *ctx)
 {
-    char entrada[40], cpf[16], senha[30];
+    char login[TAM_LOGIN], senha[30];
     int idx;
 
-    ler_string("CPF (somente números): ", entrada, (int)sizeof entrada);
-    extrair_digitos(entrada, cpf, (int)sizeof cpf);
+    ler_string("Usuário: ", login, (int)sizeof login);
     ler_string("Senha: ", senha, (int)sizeof senha);
 
-    idx = indice_usuario_por_cpf(ctx, cpf);
+    idx = indice_usuario_por_login(ctx, login);
     if (idx < 0 || ctx->usuarios[idx].senha_hash != calcular_hash(senha)) {
-        printf("[!] CPF ou senha inválidos.\n");
+        printf("[!] Usuário ou senha inválidos.\n");
         return 0;
     }
     ctx->usuario_logado = idx;
@@ -400,13 +399,28 @@ static int executar_login(Contexto *ctx)
     return 1;
 }
 
+/* Retorna 1 se o texto serve como nome de usuario: 3 a 19 caracteres, sem espacos */
+static int login_valido(const char *login)
+{
+    int i, n = str_tamanho(login);
+    if (n < 3 || n >= TAM_LOGIN) {
+        return 0;
+    }
+    for (i = 0; i < n; i++) {
+        if (login[i] == ' ') {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 static int executar_cadastro(Contexto *ctx)
 {
-    char nome[TAM_NOME], entrada[40], cpf[16], senha[30], conf[30];
+    char nome[TAM_NOME], login[TAM_LOGIN], entrada[40], cpf[16], senha[30], conf[30];
     int idx;
 
-    printf("\nLGPD: seus dados (nome, CPF e senha) serão usados apenas para\n");
-    printf("identificação e compras na VitaMarket.\n");
+    printf("\nLGPD: guardamos apenas seu nome, o nome de usuário e o hash da senha.\n");
+    printf("O CPF é usado somente para validar o cadastro e NÃO é armazenado.\n");
     if (!ler_confirmacao("Você concorda com o tratamento dos dados?")) {
         printf("Cadastro cancelado.\n");
         return 0;
@@ -414,21 +428,33 @@ static int executar_cadastro(Contexto *ctx)
     ler_string("Nome completo: ", nome, (int)sizeof nome);
 
     while (1) {
-        if (ler_string_opcional("CPF (somente números, ENTER cancela): ",
+        if (ler_string_opcional("Nome de usuário (3 a 19 caracteres, sem espaços, ENTER cancela): ",
+                                login, (int)sizeof login) == 0) {
+            printf("Cadastro cancelado.\n");
+            return 0;
+        }
+        if (!login_valido(login)) {
+            printf("[!] Use de 3 a 19 caracteres, sem espaços.\n");
+            continue;
+        }
+        if (indice_usuario_por_login(ctx, login) >= 0) {
+            printf("[!] Este nome de usuário já existe. Escolha outro.\n");
+            continue;
+        }
+        break;
+    }
+
+    while (1) {
+        if (ler_string_opcional("CPF para validação (somente números, ENTER cancela): ",
                                 entrada, (int)sizeof entrada) == 0) {
             printf("Cadastro cancelado.\n");
             return 0;
         }
         extrair_digitos(entrada, cpf, (int)sizeof cpf);
-        if (!validar_cpf(cpf)) {
-            printf("[!] CPF inválido. Confira os 11 dígitos.\n");
-            continue;
+        if (validar_cpf(cpf)) {
+            break;
         }
-        if (indice_usuario_por_cpf(ctx, cpf) >= 0) {
-            printf("[!] Este CPF já está cadastrado.\n");
-            return 0;
-        }
-        break;
+        printf("[!] CPF inválido. Confira os 11 dígitos.\n");
     }
 
     while (1) {
@@ -444,7 +470,7 @@ static int executar_cadastro(Contexto *ctx)
         return 0;
     }
 
-    idx = adicionar_usuario(ctx, nome, cpf, senha, 0);
+    idx = adicionar_usuario(ctx, nome, login, senha, 0);
     if (idx < 0) {
         printf("[!] Limite de usuários atingido.\n");
         return 0;
@@ -464,7 +490,7 @@ Estado tela_autenticacao(Contexto *ctx)
     printf("  1) Entrar\n");
     printf("  2) Criar cadastro\n");
     printf("  0) Voltar\n");
-    printf("\n  (Teste: administrador CPF 529.982.247-25 / senha admin123)\n\n");
+    printf("\n  (Teste: administrador usuário admin / senha admin123)\n\n");
 
     op = ler_opcao_segura("Escolha: ", 0, 2);
     if (op == 0) {
