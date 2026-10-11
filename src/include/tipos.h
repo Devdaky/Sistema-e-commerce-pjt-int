@@ -14,6 +14,7 @@
 #define TAM_ENDERECO        80
 #define TAM_ENDERECO_PEDIDO 120
 #define TAM_RASTREIO        20
+#define TAM_LOGIN           20
 #define TAM_MENSAGEM        100
 
 /* ---------- Arquivos de persistencia local ---------- */
