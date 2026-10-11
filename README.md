@@ -1,4 +1,3 @@
-# Sistema-e-commerce-pjt-int
 # VitaMarket - E-commerce de Modding e Tecnologia
 
 O **VitaMarket** é um protótipo de e-commerce desenvolvido para a disciplina de Projeto Integrador de Programação Estruturada. O sistema simula a experiência de compras de periféricos e acessórios de modding de tecnologia por meio de uma interface em linha de comando (CLI).
