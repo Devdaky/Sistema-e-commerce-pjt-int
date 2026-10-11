@@ -63,7 +63,7 @@ typedef struct {
 typedef struct {
     int           id;
     char          nome[TAM_NOME];
-    char          cpf[12];
+    char          login[TAM_LOGIN];
     unsigned long senha_hash;
     int           admin;
 } Usuario;
