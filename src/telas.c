@@ -419,12 +419,6 @@ static int executar_cadastro(Contexto *ctx)
     char nome[TAM_NOME], login[TAM_LOGIN], entrada[40], cpf[16], senha[30], conf[30];
     int idx;
 
-    printf("\nLGPD: guardamos apenas seu nome, o nome de usuário e o hash da senha.\n");
-    printf("O CPF é usado somente para validar o cadastro e NÃO é armazenado.\n");
-    if (!ler_confirmacao("Você concorda com o tratamento dos dados?")) {
-        printf("Cadastro cancelado.\n");
-        return 0;
-    }
     ler_string("Nome completo: ", nome, (int)sizeof nome);
 
     while (1) {
@@ -445,7 +439,7 @@ static int executar_cadastro(Contexto *ctx)
     }
 
     while (1) {
-        if (ler_string_opcional("CPF para validação (somente números, ENTER cancela): ",
+        if (ler_string_opcional("CPF (somente números, ENTER cancela): ",
                                 entrada, (int)sizeof entrada) == 0) {
             printf("Cadastro cancelado.\n");
             return 0;
