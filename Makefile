@@ -1,4 +1,4 @@
-# Makefile - VitaMarket (Projeto Integrador)
+
 CC       = gcc
 CFLAGS   = -Wall -Wextra -g -I./src/include -MMD -MP
 SRC_DIR  = src
