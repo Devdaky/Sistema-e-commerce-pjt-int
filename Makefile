@@ -27,7 +27,6 @@ run: all
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
-# remove tambem os dados salvos (produtos, usuarios e pedidos)
 reset: clean
 	rm -f produtos.txt usuarios.txt pedidos.txt
 
