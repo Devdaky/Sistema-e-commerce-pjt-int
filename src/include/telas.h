@@ -3,7 +3,7 @@
 
 #include "tipos.h"
 
-/* Cada tela desenha o menu, trata a escolha e RETORNA o proximo estado. */
+
 Estado tela_home(Contexto *ctx);
 Estado tela_catalogo(Contexto *ctx);
 Estado tela_detalhes(Contexto *ctx);
