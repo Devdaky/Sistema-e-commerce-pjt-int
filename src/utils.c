@@ -13,7 +13,6 @@ void limpar_tela(void)
 #endif
 }
 
-/* Descarta tudo o que sobrou na linha de entrada (no lugar de fflush(stdin)) */
 void limpar_buffer(void)
 {
     int c;
@@ -130,8 +129,6 @@ static void aparar(char *s)
     }
 }
 
-/* Le uma linha inteira com fgets. Se a linha for maior que o buffer,
-   descarta o excesso com limpar_buffer() (evita "lixo" na proxima leitura). */
 static void ler_linha(char *buf, int tam)
 {
     int i = 0;
@@ -153,7 +150,6 @@ static void ler_linha(char *buf, int tam)
     aparar(buf);
 }
 
-/* O caractere '|' e o separador dos arquivos: troca por '/' */
 static void higienizar(char *s)
 {
     int i;
@@ -277,7 +273,6 @@ int ler_confirmacao(const char *prompt)
 
 /* ===================== Validacoes ===================== */
 
-/* Copia apenas os digitos de 'origem'. Retorna quantos digitos existiam. */
 int extrair_digitos(const char *origem, char *destino, int tam)
 {
     int i, n = 0;
@@ -341,7 +336,6 @@ int validar_cep(const char *d)
     return 1;
 }
 
-/* Hash djb2 (simples, adequado para a versao alfa) */
 unsigned long calcular_hash(const char *s)
 {
     unsigned long h = 5381UL;
